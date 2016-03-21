@@ -15,16 +15,7 @@ config_file = "config.xml"
 def yt_video_url(vid): return 'http://%s/watch?v=%s' % (HOST, vid)
 
 
-def yt_video_api_url(vid): return 'https://%s/feeds/api/videos/%s?v=2' % (GDATA_HOST, vid)
-
-
-def yt_related_video_url(vid): return 'https://%s/feeds/api/videos/%s/related?v=2' % (GDATA_HOST, vid)
-
-
 def yt_insights_url(vid): return 'https://%s/insight_ajax?action_get_statistics_and_data=1&v=%s' % (HOST, vid)
-
-
-def yt_gplus_url(vid): return 'https://plus.google.com/ripples/details?url=https://%s/watch?v=%s' % (HOST, vid)
 
 
 def create_opener(cookie_jar=None):
