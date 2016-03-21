@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="youStatAnalyzer">
+<head>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <script type="text/javascript" src="../static/js/angular.min.js"></script>
+    <script type="text/javascript" src="../static/js/app.js"></script>
+    <script type="text/javascript" src="../static/js/dygraph-combined.js"></script>
+    <script type="text/javascript" src="../static/js/graph-creation.js"></script>
+</head>
+<body>
+    <h1>YouStat Analyzer</h1>
+    <div ng-controller="StatsController as stats">
+        <h2>Video ID: <input type="text" ng-model="stats.vid"></h2>
+        <button ng-click="stats.updateStats()">Fetch</button>
+        <h2>Cumulative Views:</h2>
+        <div id="statsGraph"></div>
+    </div>
+</body>
+<script>
+    createCumulativeViewsGraph();
+</script>
+</html>

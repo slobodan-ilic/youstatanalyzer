@@ -59,25 +59,33 @@ def get_video_title(html):
 
 
 def extract_video_statistics (vid_id, title, data):
-    obj_list_data = [map(float, elem.split(',')) for elem in re.findall(r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]', data)]
-    obj_list_labels = re.findall(r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+', data)
-    
-    video_data = {'title': title}
+    stats_data = [map(float, elem.split(',')) for elem in re.findall(r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]', data)]
+    stats_labels = re.findall(r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+', data)
+    stats = ['views', 'shares', 'subscribers', 'watch-time']
+    stat_types = ['cumulative', 'daily']
+
+    video_data = {
+        'title': title,
+        'vid_id': vid_id
+    }
 
     ii = 0
-    for count2 in range(0,len(obj_list_labels)):
-        if ('views' in obj_list_labels[count2]) or ('shares' in obj_list_labels[count2]) or ('subscribers' in obj_list_labels[count2]) or ('watch-time' in obj_list_labels[count2]):
-            level1 = filter(lambda x: x.isalpha(), obj_list_labels[count2])
+    level1 = None
+    level2 = None
+    for label in stats_labels:
+        label = label.strip('":')
+        if label in stats:
+            level1 = label
             video_data[level1] = {}
-        elif ('daily' in obj_list_labels[count2]) or ('cumulative' in obj_list_labels[count2]):
-            level2 = filter(lambda x: x.isalpha(), obj_list_labels[count2])
+        elif label in stat_types:
+            level2 = label
             video_data[level1][level2] = {}
-            video_data[level1][level2]["data"] = obj_list_data[ii]
+            video_data[level1][level2]["data"] = stats_data[ii]
             ii += 1
-        elif 'day' in obj_list_labels[count2]:
-            level1 = filter(lambda x: x.isalpha(), obj_list_labels[count2])
+        elif label == 'day':
+            level1 = label
             video_data[level1] = {}
-            video_data[level1]["data"] = obj_list_data[ii]
+            video_data[level1]["data"] = stats_data[ii]
             ii += 1
 
     return video_data
