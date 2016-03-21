@@ -5,6 +5,6 @@ YOUStatAnalyzer is a tool written in Python able to capture the popularity metri
 
 ## Usage
 
-The software is very easy to use, just need to configure it and run.
+Start Flask website locally. Use by entering ID of the video to be analyzed.
 
-To run it use the command: ```python youtube_script.py config.xml``` where config.xml is of course the configuration file. The tool will automatically read it and react accordingly.
+To run the web server use the command: ```python app.py``` The website will be available at localhost.
