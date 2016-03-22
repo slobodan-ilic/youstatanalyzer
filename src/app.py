@@ -10,6 +10,7 @@ s = None
 
 @app.route('/')
 def index():
+    # Using make_response instead of render_template, because of AngularJS.
     return make_response(open("templates/index.html").read())
 
 
