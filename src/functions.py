@@ -12,10 +12,13 @@ UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) '
 config_file = "config.xml"
 
 
-def yt_video_url(vid): return 'http://%s/watch?v=%s' % (HOST, vid)
+def yt_video_url(vid):
+    return 'http://{0}/watch?v={1}'.format(HOST, vid)
 
 
-def yt_insights_url(vid): return 'https://%s/insight_ajax?action_get_statistics_and_data=1&v=%s' % (HOST, vid)
+def yt_insights_url(vid):
+    return 'https://{0}/insight_ajax?action_get_statistics_and_data=1&v={1}'.format(
+        HOST, vid)
 
 
 def create_opener(cookie_jar=None):
@@ -59,8 +62,10 @@ def get_video_title(html):
 
 
 def extract_video_statistics (vid_id, title, data):
-    stats_data = [map(float, elem.split(',')) for elem in re.findall(r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]', data)]
-    stats_labels = re.findall(r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+', data)
+    stats_data = [map(float, elem.split(',')) for elem in re.findall(
+        r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]', data)]
+    stats_labels = re.findall(
+        r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+', data)
     stats = ['views', 'shares', 'subscribers', 'watch-time']
     stat_types = ['cumulative', 'daily']
 
@@ -95,9 +100,6 @@ def launch_scraper(vid_id, opener):
     video_page = fetch_video_html(opener, vid_id)
     token = get_insight_ajax_token(video_page)
     title = get_video_title(video_page)
-
-    print "Video id: {0}".format(vid_id)
-    print "Title: {0}".format(title)
 
     if not token:
         print "No session token"

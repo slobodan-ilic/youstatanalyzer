@@ -81,7 +81,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="panel-info">
+            <div class="panel panel-info">
                 <div id="cum-views" class="panel-heading" ng-show="stats.tab === 'Cumulative Views'">
                     <div class="panel-title">Cumulative Views:</div>
                 </div>
@@ -112,6 +112,12 @@
                             <div id="statsGraph" style="width: 100%"></div>
                         </div>
                     </div>
+                </div>
+                <div class="panel-footer">
+                    <a id="download_xlsx" class="btn btn-default" download="statistics.xlsx"
+                            href="/statistics_spreadsheet">
+                        Download Statistics Spreadsheet
+                    </a>
                 </div>
             </div>
         </div>
