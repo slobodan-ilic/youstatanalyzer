@@ -10,6 +10,8 @@ UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) '
       'Chrome/31.0.1650.57 Safari/537.36')
 
 config_file = "config.xml"
+re_data = r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]'
+re_labels = r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+'
 
 
 def yt_video_url(vid):
@@ -63,9 +65,8 @@ def get_video_title(html):
 
 def extract_video_statistics (vid_id, title, data):
     stats_data = [map(float, elem.split(',')) for elem in re.findall(
-        r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]', data)]
-    stats_labels = re.findall(
-        r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+', data)
+        re_data, data)]
+    stats_labels = re.findall(re_labels, data)
     stats = ['views', 'shares', 'subscribers', 'watch-time']
     stat_types = ['cumulative', 'daily']
 

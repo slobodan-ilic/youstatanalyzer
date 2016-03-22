@@ -13,6 +13,10 @@
             try {
                 $http.get('/stats.json', {params: {vid: analyzer.vid}}).then(
                     function (stats) {
+                        if (stats.data === 'Could not fetch data.') {
+                            analyzer.title = "No statistics for this video."
+                            return
+                        }
                         analyzer.stats = stats.data;
                         analyzer.title = stats.data.title;
                         analyzer.g = analyzer.drawGraph();

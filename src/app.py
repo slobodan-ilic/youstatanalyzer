@@ -27,7 +27,11 @@ def stats():
 
 @app.route('/statistics_spreadsheet')
 def statistics_spreadsheet():
-    file_path = os.getcwd() + '\\' + generate_spreadsheet(s)
+    global s
+    if os.name == 'posix':
+        file_path = '/tmp/' + generate_spreadsheet(s)
+    elif os.name == 'nt':
+        file_path = os.getcwd() + '\\' + generate_spreadsheet(s)
     return send_file(file_path)
 
 
