@@ -15,6 +15,10 @@
                     function (stats) {
                         if (stats.data === 'Could not fetch data.') {
                             analyzer.title = "No statistics for this video."
+                            analyzer.g.updateOptions(
+                                {'file': [[0, 0]]}
+                            );
+                            g.resize();
                             return
                         }
                         analyzer.stats = stats.data;

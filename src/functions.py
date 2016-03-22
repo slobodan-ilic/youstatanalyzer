@@ -9,9 +9,10 @@ UA = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) '
       'AppleWebKit/537.36 (KHTML, like Gecko) '
       'Chrome/31.0.1650.57 Safari/537.36')
 
-config_file = "config.xml"
-re_data = r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]'
-re_labels = r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+'
+re_data = re.compile(
+    r'["]+[\w]+[\\":]+[ ]+[\[]+([\d\.\d,\s]+|[\d,\s]+|[\d,\s\d]+|[-\d\.\d,\s]+|[-\d,\s]+|[-\d,\s\d]+)+[\]]')
+re_labels = re.compile(
+    r'["]+[views]+[\\":]+|["]+[shares]+[\\":]+|["]+[subscribers]+[\\":]+|["]+[day]+[\\":]+|["]+[cumulative]+[\\":]+|["]+[daily]+[\\":]+|["]+[watch\-time]+[\\":]+')
 
 
 def yt_video_url(vid):
