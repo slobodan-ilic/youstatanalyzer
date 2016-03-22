@@ -10,9 +10,9 @@ def analyze_stats(video_id):
         print "Error : ", exc
 
 
-def generate_spreadsheet(stats):
+def generate_spreadsheet(stats, filename):
     if 'day' in stats.keys():
-        wb = xlsxwriter.Workbook('stats.xlsx')
+        wb = xlsxwriter.Workbook(filename)
         ws = wb.add_worksheet('Stats')
         # Create title
         ws.write(0, 0, 'Video')

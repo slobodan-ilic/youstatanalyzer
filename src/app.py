@@ -30,10 +30,12 @@ def stats():
 def statistics_spreadsheet():
     global s
     if os.name == 'posix':
-        file_path = '/tmp/' + generate_spreadsheet(s)
+        filename = '/tmp/stats.xlsx'
+        generate_spreadsheet(s, filename)
     elif os.name == 'nt':
-        file_path = os.getcwd() + '\\' + generate_spreadsheet(s)
-    return send_file(file_path)
+        filename = os.getcwd() + '\\' + 'stats.xlsx'
+        generate_spreadsheet(s, filename)
+    return send_file(filename)
 
 
 if __name__ == "__main__":
