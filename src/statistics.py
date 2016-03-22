@@ -1,6 +1,5 @@
 from functions import launch_scraper, create_opener
 import xlsxwriter
-import os
 
 
 def analyze_stats(video_id):
