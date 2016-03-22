@@ -2,21 +2,126 @@
 <html lang="en" ng-app="youStatAnalyzer">
 <head>
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/max-width-input.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-center">YouStat Analyzer</h1>
+            </div>
+        </div>
+        <div ng-controller="StatsController as stats">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="text-right">Video ID:</h2>
+                </div>
+                <div class="col-lg-3">
+                    <h2 class="text-left">
+                        <input type="text" ng-model="stats.vid">
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-lg-offset-5">
+                    <button type="button" class="h2 btn btn-primary btn-block btn-lg text-center"
+                            ng-click="stats.updateStats()">
+                        Fetch Statistics
+                    </button>
+                </div>
+            </div>
+            <div class="row" ng-hide="stats.title === ''">
+                <div class="col-lg-12">
+                    <h2 class="alert alert-info text-center">{{stats.title}}</h2>
+                </div>
+            </div>
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" id="profiTabs">
+                    <li role="presentation" class="active">
+                        <a href="#cum-views" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Cumulative Views')">
+                            Views
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#day-views" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Daily Views')">Views - Daily
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#cum-shares" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Cumulative Shares')">Shares
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#day-shares" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Daily Shares')">Shares - Daily
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#cum-subscribers" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Cumulative Subscribers')">Subscribers
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#day-subscribers" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Daily Subscribers')">Subscribers - Daily
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#cum-watch-time" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Cumulative Watch-Time')">Watch-Time
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#day-watch-time" role="tab" data-toggle="tab"
+                           ng-click="stats.drawGraph('Daily Watch-Time')">Watch-Time - Daily
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-info">
+                <div id="cum-views" class="panel-heading" ng-show="stats.tab === 'Cumulative Views'">
+                    <div class="panel-title">Cumulative Views:</div>
+                </div>
+                <div id="day-views" class="panel-heading" ng-show="stats.tab === 'Daily Views'">
+                    <div class="panel-title">Daily Views</div>
+                </div>
+                <div id="cum-shares" class="panel-heading" ng-show="stats.tab === 'Cumulative Shares'">
+                    <div class="panel-title">Cumulative Shares</div>
+                </div>
+                <div id="day-shares" class="panel-heading" ng-show="stats.tab === 'Daily Shares'">
+                    <div class="panel-title">Daily Shares</div>
+                </div>
+                <div id="cum-subscribers" class="panel-heading" ng-show="stats.tab === 'Cumulative Subscribers'">
+                    <div class="panel-title">Cumulative Subscribers</div>
+                </div>
+                <div id="day-subscribers" class="panel-heading" ng-show="stats.tab === 'Daily Subscribers'">
+                    <div class="panel-title">Daily Subscribers</div>
+                </div>
+                <div id="cum-watch-time" class="panel-heading" ng-show="stats.tab === 'Cumulative Watch-Time'">
+                    <div class="panel-title">Cumulative Watch-Time</div>
+                </div>
+                <div id="day-watch-time" class="panel-heading" ng-show="stats.tab === 'Daily Watch-Time'">
+                    <div class="panel-title">Daily Watch-Time</div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="statsGraph" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="../static/js/angular.min.js"></script>
     <script type="text/javascript" src="../static/js/app.js"></script>
     <script type="text/javascript" src="../static/js/dygraph-combined.js"></script>
     <script type="text/javascript" src="../static/js/graph-creation.js"></script>
-</head>
-<body>
-    <h1>YouStat Analyzer</h1>
-    <div ng-controller="StatsController as stats">
-        <h2>Video ID: <input type="text" ng-model="stats.vid"></h2>
-        <button ng-click="stats.updateStats()">Fetch</button>
-        <h2>Cumulative Views:</h2>
-        <div id="statsGraph"></div>
-    </div>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
 </body>
-<script>
-    createCumulativeViewsGraph();
-</script>
 </html>

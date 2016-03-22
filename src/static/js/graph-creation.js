@@ -1,14 +1,28 @@
-function createCumulativeViewsGraph(stats) {
+function createStatsGraph(stats, selector, type) {
+    try {
+        var data, g, days, drawStats, graphDiv;
+        graphDiv = document.getElementById('statsGraph');
 
-    var data, g, days, cumulativeViews;
+        if (stats.hasOwnProperty('day')) {
+            days = stats.day.data;
+            drawStats = stats[selector][type].data;
 
-    days = stats['data']['day']['data'];
-    cumulativeViews = stats['data']['views']['cumulative']['data'];
+            data = "day, " + selector + "\n";
+            for (var i = 0; i < days.length; i++) {
+                var x = String(new Date(days[i]));
+                var y = drawStats[i];
+                data += x + ', ' + y + '\n';
+            }
 
-    data = "Day, Views\n";
-    for (var i = 0; i < days.length; i++) {
-        data += days[i] + ', ' + cumulativeViews[i] + '\n';
+            g = new Dygraph(graphDiv, data, {});
+        }
+        else {
+            g = new Dygraph(graphDiv, '', {});
+        }
+
+        return g;
     }
-
-    g = new Dygraph(document.getElementById('statsGraph'), data, {});
+    catch (exc) {
+        alert('Error: ' + exc)
+    }
 }
