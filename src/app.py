@@ -38,5 +38,10 @@ def statistics_spreadsheet():
     return send_file(filename)
 
 
+@app.after_request
+def add_header(response):
+    response.headers['Cache-Control'] = 'public, max-age=0'
+    return response
+
 if __name__ == "__main__":
     app.run(debug=True)
