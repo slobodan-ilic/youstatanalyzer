@@ -8,6 +8,7 @@ from flask import make_response
 
 app = Flask(__name__)
 s = None
+mimetype = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 
 
 @app.route('/')
@@ -35,11 +36,9 @@ def statistics_spreadsheet():
         filename = '/tmp/statistics.xlsx'
     elif os.name == 'nt':
         filename = os.getcwd() + '\\' + 'statistics.xlsx'
-        generate_spreadsheet(s, filename)
-    # return send_file(filename, cache_timeout=0)
-    generate_spreadsheet(s, filename)
-
-    return send_file(open(filename))
+    output = generate_spreadsheet(s)
+    output.seek(0)
+    return send_file(output, mimetype=mimetype, cache_timeout=0)
 
 if __name__ == "__main__":
     app.run(debug=True)
