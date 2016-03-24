@@ -35,7 +35,7 @@ def statistics_spreadsheet():
     elif os.name == 'nt':
         filename = os.getcwd() + '\\' + 'statistics.xlsx'
         generate_spreadsheet(s, filename)
-    return send_file(filename)
+    return send_file(filename, cache_timeout=0)
 
 
 if __name__ == "__main__":
