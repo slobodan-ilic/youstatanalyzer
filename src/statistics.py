@@ -1,3 +1,5 @@
+# _*_ coding: utf-8
+
 from functions import launch_scraper, create_opener
 import xlsxwriter
 
@@ -16,7 +18,7 @@ def generate_spreadsheet(stats, filename):
         ws = wb.add_worksheet('Stats')
         # Create title
         ws.write(0, 0, 'Video')
-        ws.write(0, 1, stats['title'])
+        ws.write(0, 1, stats['title'].decode('utf-8'))
         # Create headers
         ws.write(2, 0, 'Day')
         ws.write(2, 1, 'Cumulative Views')
