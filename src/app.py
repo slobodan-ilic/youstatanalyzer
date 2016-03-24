@@ -2,6 +2,8 @@ from flask import Flask, make_response, request, send_file
 from statistics import analyze_stats, generate_spreadsheet
 import json
 import os
+import StringIO
+from flask import make_response
 
 
 app = Flask(__name__)
@@ -31,12 +33,13 @@ def statistics_spreadsheet():
     global s
     if os.name == 'posix':
         filename = '/tmp/statistics.xlsx'
-        generate_spreadsheet(s, filename)
     elif os.name == 'nt':
         filename = os.getcwd() + '\\' + 'statistics.xlsx'
         generate_spreadsheet(s, filename)
-    return send_file(filename, cache_timeout=0)
+    # return send_file(filename, cache_timeout=0)
+    generate_spreadsheet(s, filename)
 
+    return send_file(open(filename))
 
 if __name__ == "__main__":
     app.run(debug=True)

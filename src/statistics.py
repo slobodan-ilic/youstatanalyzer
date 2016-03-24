@@ -2,6 +2,7 @@
 
 from functions import launch_scraper, create_opener
 import xlsxwriter
+import StringIO
 
 
 def analyze_stats(video_id):
@@ -14,6 +15,7 @@ def analyze_stats(video_id):
 
 def generate_spreadsheet(stats, filename):
     if 'day' in stats.keys():
+        output = StringIO.StringIO()
         wb = xlsxwriter.Workbook(filename)
         ws = wb.add_worksheet('Stats')
         # Create title
@@ -35,3 +37,4 @@ def generate_spreadsheet(stats, filename):
             ws.write(start + i, 4, stats['shares']['daily']['data'][i])
         wb.close()
         return wb.filename
+        # return output
