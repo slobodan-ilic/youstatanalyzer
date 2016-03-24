@@ -13,10 +13,11 @@ def analyze_stats(video_id):
         print "Error : ", exc
 
 
-def generate_spreadsheet(stats):
+def generate_spreadsheet(stats, filename):
     if 'day' in stats.keys():
         output = StringIO()
-        wb = xlsxwriter.Workbook(output, {'in_memory': True})
+        # wb = xlsxwriter.Workbook(output, {'in_memory': True})
+        wb = xlsxwriter.Workbook(filename)
         ws = wb.add_worksheet('Stats')
         # Create title
         ws.write(0, 0, 'Video')
@@ -36,5 +37,4 @@ def generate_spreadsheet(stats):
             ws.write(start + i, 3, stats['shares']['cumulative']['data'][i])
             ws.write(start + i, 4, stats['shares']['daily']['data'][i])
         wb.close()
-        return output
         # return output
